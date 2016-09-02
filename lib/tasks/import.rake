@@ -1,10 +1,10 @@
 namespace :import do
   desc "TODO"
-  task all: :environment do
+  task run: :environment do
     file = File.read(Rails.root.join('lib', 'AllSets.json'))
     data = JSON.parse(file)
 
-    data.each do |key,value|
+    data.each do |key, value|
       magic_set = MagicSet.where(code: value['code']).first_or_create! do |set|
         set.name = value['name']
         set.code = value['code']
