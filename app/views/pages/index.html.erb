@@ -1,0 +1,38 @@
+<div class="Demo">
+  <form action="https://twitter.com/search" method="get">
+    <input name="mode" value="users" type="hidden">
+    <div class="Typeahead Typeahead--twitterUsers">
+      <div class="u-posRelative">
+        <input dir="ltr" class="Typeahead-hint" tabindex="-1" readonly="" type="text">
+        <input dir="auto" spellcheck="false" autocomplete="off" class="Typeahead-input tt-input" id="demo-input" name="q" placeholder="Search Twitter users..." type="text"><pre style="position: absolute; visibility: hidden; white-space: pre; font-family: &quot;Helvetica Neue&quot;,Roboto,&quot;Segoe UI&quot;,Calibri,sans-serif; font-size: 24px; font-style: normal; font-variant: normal; font-weight: 400; word-spacing: 0px; letter-spacing: 0px; text-indent: 0px; text-rendering: optimizelegibility; text-transform: none;" aria-hidden="true"></pre>
+        <%= image_tag('spinner.gif', class: 'Typeahead-spinner') %>
+      </div>
+      <div class="Typeahead-menu">
+      	<div class="tt-dataset tt-dataset-0">
+				</div>
+    	</div>
+    <button class="u-hidden" type="submit">blah</button>
+  </form>
+</div>
+
+<script id="result-template" type="text/x-handlebars-template">
+  <div class="ProfileCard u-cf">
+    <img class="ProfileCard-avatar" src="{{profile_image_url_https}}">
+
+    <div class="ProfileCard-details">
+      <div class="ProfileCard-realName">{{name}}</div>
+      <div class="ProfileCard-screenName">({{type_of_card}})</div>
+      <div class="ProfileCard-description">{{description}}</div>
+    </div>
+
+    <div class="ProfileCard-stats">
+      <div class="ProfileCard-stat"><span class="ProfileCard-stat-label">Tweets:</span> {{statuses_count}}</div>
+      <div class="ProfileCard-stat"><span class="ProfileCard-stat-label">Following:</span> {{friends_count}}</div>
+      <div class="ProfileCard-stat"><span class="ProfileCard-stat-label">Followers:</span> {{followers_count}}</div>
+    </div>
+  </div>
+</script>
+
+<script id="empty-template" type="text/x-handlebars-template">
+  <div class="EmptyMessage">Your search turned up 0 results. This most likely means the backend is down, yikes!</div>
+</script>
