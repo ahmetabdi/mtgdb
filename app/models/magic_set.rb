@@ -1,7 +1,16 @@
 class MagicSet < ApplicationRecord
-  searchkick match: :word_start, searchable: [:name]
+  searchkick
   extend FriendlyId
-  friendly_id :name, use: :slugged
+  friendly_id :slug_candidates, use: :slugged
+
+  # Try building a slug based on the following fields in
+  # increasing order of specificity.
+  def slug_candidates
+    [
+      :name,
+      [:name, :id]
+    ]
+  end
 
   def serialized_booster
     JSON.parse(booster)

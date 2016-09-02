@@ -48,9 +48,32 @@ html {
 /* ----------- */
 
 html {
-  background-color: #f2f9ff;
-  font: normal normal normal 18px/1.2 "Helvetica Neue", Roboto, "Segoe UI", Calibri, sans-serif;
+  background-color: #eee;
   color: #292f33;
+}
+
+body,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+.h1,
+.h2,
+.h3,
+.h4 {
+    font-family: RobotoDraft, Roboto, Helvetica Neue, Helvetica, Arial, sans-serif;
+    font-weight: 300
+}
+h5,
+h6 {
+    font-weight: 400
+}
+a,
+a:hover,
+a:focus {
+    color: #009587
 }
 
 a {
