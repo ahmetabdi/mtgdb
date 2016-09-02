@@ -68,11 +68,11 @@ $(document).on('ready page:load', function(event) {
 		.on('typeahead:asynccancel typeahead:asyncreceive', function() {
 		  $('.Typeahead-spinner').hide();
 		})
-		.on('typeahead:select', function(object, suggestion) { // Call when clicking on a suggestion
-		  window.location.href = "/search/" + suggestion.slug;
+		.on('typeahead:select', function(object, suggestion) {
+		  window.location.href = "/cards/" + suggestion.slug;
 		})
 		.on('typeahead:autocomplete', function(object, suggestion) {
-		  window.location.href = "/search/" + suggestion.slug;
+		  window.location.href = "/cards/" + suggestion.slug;
 		});
 	}
 });
