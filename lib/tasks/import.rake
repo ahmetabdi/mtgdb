@@ -5,7 +5,7 @@ namespace :import do
     data = JSON.parse(file)
 
     data.each do |key, value|
-      magic_set = MagicSet.where(code: value['code']).first_or_create! do |set|
+      magic_set = MagicSet.where(code: value['code']).first_or_initialize.tap do |set|
         set.name = value['name']
         set.code = value['code']
         set.gatherer_code = value['gathererCode']
@@ -20,11 +20,12 @@ namespace :import do
         set.mkm_name = value['mkm_name']
         set.mkm_id = value['mkm_id']
         set.magic_rarities_codes = value['magicRaritiesCodes']
+        set.save
       end
 
       value['cards'].each do |value|
         puts value['name']
-        MagicCard.where(unique_id: value['id']).first_or_create! do |card|
+        MagicCard.where(unique_id: value['id']).first_or_initialize.tap do |card|
           card.unique_id = value['id']
           card.layout = value['layout']
           card.name = value['name']
@@ -58,6 +59,7 @@ namespace :import do
           card.starter = value['starter']
           card.mci_number = value['mciNumber']
           card.magic_set_id = magic_set.id
+          card.save
         end
       end
     end
