@@ -1,0 +1,17 @@
+<% @sets.each_slice(3) do |slice| %>
+	<div style="margin-top: 20px; margin-bottom: 20px;"></div>
+	<div class="row">
+	<% slice.each do |set| %>
+	  <div class="medium-4 columns">
+			<div style="border: solid 5px <%= set.border %>; padding: 10px;">
+		  	<div><%= set.name %> (<%= set.code %>)</div>
+		  	<div><i class="ss ss-<%= set.code.downcase %> ss-3x ss-common"></i></div>
+				
+				<div><%= set.release_date.strftime("#{set.release_date.day.ordinalize} %B %Y") %></div>
+				<div><%= set.border %></div>
+				<div><%= set.type_of_set %></div>
+			</div>
+	  </div>
+	<% end %>
+	</div>
+<% end %>

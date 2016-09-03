@@ -12,11 +12,11 @@
 //
 //= require jquery
 //= require jquery_ujs
+//= require foundation
 //= require turbolinks
 //= require_tree .
 
 $(document).on('ready page:load', function(event) {
-
 	Handlebars.registerHelper('toLowerCase', function(str) {
 	  return str.toLowerCase();
 	});
@@ -138,3 +138,5 @@ $(document).on('ready page:load', function(event) {
 		});
 	}
 });
+
+$(function(){ $(document).foundation(); });
