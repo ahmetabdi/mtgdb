@@ -4,7 +4,7 @@
 	<% slice.each do |set| %>
 	  <div class="medium-4 columns">
 			<div style="border: solid 5px <%= set.border %>; padding: 10px;">
-		  	<div><%= set.name %> (<%= set.code %>)</div>
+		  	<div><%= link_to set.name, set_path(set) %> (<%= set.code %>)</div>
 		  	<div><i class="ss ss-<%= set.code.downcase %> ss-3x ss-common"></i></div>
 				
 				<div><%= set.release_date.strftime("#{set.release_date.day.ordinalize} %B %Y") %></div>
