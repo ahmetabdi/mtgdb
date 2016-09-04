@@ -7,7 +7,6 @@
 		<table>
 		  <thead>
 		    <tr>
-		      <th width="200">Table Header</th>
 		      <th>Name</th>
 		      <th width="150">Mana Cost</th>
 		      <th width="150">Rarity</th>
@@ -16,7 +15,6 @@
 		  <tbody>
 		  	<% @set.magic_cards.each do |card| %>
 		  	<tr>
-		      <td><img src="https://s3-eu-west-1.amazonaws.com/mtgdb-production/<%= @set.code.downcase %>/<%= CGI.escape(card.name) %>.full.jpg" width="100px" /></td>
 		      <td><%= card.name %></td>
 		      <td><%= mana_cost_to_icons(card.mana_cost).html_safe if card.mana_cost %></td>
 		      <td><%= card.rarity %></td>
