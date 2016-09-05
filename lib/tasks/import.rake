@@ -1,30 +1,65 @@
-namespace :import do
-  desc "TODO"
-  task run: :environment do
-    file = File.read(Rails.root.join('lib', 'AllSetsExtras.json'))
-    data = JSON.parse(file)
+require 'net/http'
+require 'zip'
 
-    data.each do |key, value|
-      magic_set = MagicSet.where(code: value['code']).first_or_initialize.tap do |set|
-        set.name = value['name']
-        set.code = value['code']
-        set.gatherer_code = value['gathererCode']
-        set.old_code = value['oldCode']
-        set.magic_cards_info_code = value['magicCardsInfoCode']
-        set.release_date = value['releaseDate']
-        set.border = value['border']
-        set.type_of_set = value['type']
-        set.block = value['block']
-        set.online_only = value['onlineOnly']
-        set.booster = value['booster']
-        set.mkm_name = value['mkm_name']
-        set.mkm_id = value['mkm_id']
-        set.magic_rarities_codes = value['magicRaritiesCodes']
+namespace :import do
+  desc "Downloads and imports all sets and cards from mtgjson.com"
+  task run: :environment do
+    # Sets to download - Currently everything in standard
+    sets_to_download = ['DTK', 'ORI', 'BFZ', 'OGW', 'W16', 'SOI', 'EMN']
+
+    sets_to_download.each do |set_name|
+      # Delete existing files before we start
+      if File.exists? "public/importer/#{set_name}.json"
+        File.delete "public/importer/#{set_name}.json"
+      end
+
+      if File.exists? "public/importer/#{set_name}.zip"
+        File.delete "public/importer/#{set_name}.zip"
+      end
+
+      # Fetch ZIP for the current SET to be downloaded
+      uri = URI("https://mtgjson.com/json/#{set_name}-x.json.zip")
+      zipped_folder = Net::HTTP.get(uri)
+
+      File.open("public/importer/#{set_name}.zip", 'wb') do |file|
+        file.write(zipped_folder)
+      end
+
+      # Extra fetched ZIP to a JSON file
+      zip_file = Zip::File.open("public/importer/#{set_name}.zip")
+      zip_file.each do |file|
+        file.extract("public/importer/#{set_name}.json")
+      end
+
+      # Remove UNZIPPED ZIP as it's no longer needed
+      if File.exists? "public/importer/#{set_name}.zip"
+        File.delete "public/importer/#{set_name}.zip"
+      end
+
+      # Parse the JSON file and start importing the data
+      file = File.read("public/importer/#{set_name}.json")
+      data = JSON.parse(file)
+
+      magic_set = MagicSet.where(code: data['code']).first_or_initialize.tap do |set|
+        set.name = data['name']
+        set.code = data['code']
+        set.gatherer_code = data['gathererCode']
+        set.old_code = data['oldCode']
+        set.magic_cards_info_code = data['magicCardsInfoCode']
+        set.release_date = data['releaseDate']
+        set.border = data['border']
+        set.type_of_set = data['type']
+        set.block = data['block']
+        set.online_only = data['onlineOnly']
+        set.booster = data['booster']
+        set.mkm_name = data['mkm_name']
+        set.mkm_id = data['mkm_id']
+        set.magic_rarities_codes = data['magicRaritiesCodes']
         set.save
       end
 
-      value['cards'].each do |value|
-        puts value['name']
+      data['cards'].each do |value|
+        puts "#{data['name']} - #{value['name']}"
         MagicCard.where(unique_id: value['id']).first_or_initialize.tap do |card|
           card.unique_id = value['id']
           card.layout = value['layout']
@@ -65,10 +100,13 @@ namespace :import do
           card.original_type = value['originalType']
           card.legalities = value['legalities']
           card.promo_source = value['source']
-
           card.magic_set_id = magic_set.id
           card.save
         end
+      end
+
+      if File.exists? "public/importer/#{set_name}.json"
+        File.delete "public/importer/#{set_name}.json"
       end
     end
   end

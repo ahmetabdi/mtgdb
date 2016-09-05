@@ -11,7 +11,7 @@ gem 'jbuilder', '~> 2.5'
 gem 'searchkick'
 gem 'friendly_id', '~> 5.1.0'
 gem 'foundation-rails'
-
+gem 'rubyzip'
 group :development, :test do
   gem 'byebug', platform: :mri
 end
