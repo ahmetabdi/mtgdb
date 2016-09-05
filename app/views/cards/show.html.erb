@@ -15,18 +15,22 @@
 		    	<td><%= @card.magic_set.name %> <i class="ss ss-<%= @card.magic_set.code.downcase %> ss-2x ss-<%= @card.rarity.downcase %>"></i></td>
 		    </tr>
 		    <% end %>
+		    <% if @card.mana_cost %>
 		    <tr>
 		      <td>Mana Cost</td>
-		      <td><%= mana_cost_to_icons(@card.mana_cost).html_safe %></td>
+		      <td><%= mana_cost_to_icons(@card.mana_cost) %></td>
 		    </tr>
+		    <% end %>
 		    <tr>
 		      <td>Type</td>
 		      <td><%= @card.type_of_card %></td>
 		    </tr>
+		    <% if @card.text %>
 		    <tr>
 		    	<td>Text</td>
-		    	<td><%= @card.text %></td>
+		    	<td><%= mana_cost_to_icons(@card.text) %></td>
 	    	</tr>
+	    	<% end %>
 	    	<% if @card.flavor %>
 	    	<tr>
 		    	<td>Flavor</td>

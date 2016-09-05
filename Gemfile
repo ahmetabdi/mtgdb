@@ -12,6 +12,8 @@ gem 'searchkick'
 gem 'friendly_id', '~> 5.1.0'
 gem 'foundation-rails'
 gem 'rubyzip'
+gem 'kaminari'
+
 group :development, :test do
   gem 'byebug', platform: :mri
 end

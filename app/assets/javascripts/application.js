@@ -16,6 +16,25 @@
 //= require_tree .
 
 $(document).on('ready page:load', function(event) {
+
+  $('.img-preview a').imgPreview({
+    preloadImages: false,
+    imgCSS: {
+        height: 500
+    },
+    onShow: function(link){
+        $(link).stop().animate({opacity:0.4});
+        $('img', this).stop().css({opacity:0});
+    },
+    onLoad: function(){
+        $(this).animate({opacity:1}, 300);
+    },
+    onHide: function(link){
+        $(link).stop().animate({opacity:1});
+    }
+  });
+
+
 	Handlebars.registerHelper('toLowerCase', function(str) {
 	  return str.toLowerCase();
 	});

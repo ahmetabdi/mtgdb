@@ -16,7 +16,7 @@
 		  	<% @set.magic_cards.each do |card| %>
 		  	<tr>
 		      <td><%= link_to card.name, card_path(card) %></td>
-		      <td><%= mana_cost_to_icons(card.mana_cost).html_safe if card.mana_cost %></td>
+		      <td><%= mana_cost_to_icons(card.mana_cost) %></td>
 		      <td><%= card.rarity %></td>
 		    </tr>
 		  	<% end %>
