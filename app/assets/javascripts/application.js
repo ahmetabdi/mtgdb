@@ -17,8 +17,9 @@
 
 $(document).on('ready page:load', function(event) {
 
-  $('.img-preview a').imgPreview({
+  $('.img-preview img').imgPreview({
     preloadImages: false,
+    srcAttr: 'rel',
     imgCSS: {
         height: 500
     },
