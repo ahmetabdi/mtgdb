@@ -104,7 +104,7 @@ $(document).on('ready page:load', function(event) {
 		  name: 'best-pictures',
 		  displayKey: 'name',
 		  source: bloodQuery,
-      limit: 20,
+      limit: 100,
 		  //source: function(query, syncResults, asyncResults) {
       //  console.log(query);
       //  $.get('/search?query=' + encodeURIComponent(query), function(data) {

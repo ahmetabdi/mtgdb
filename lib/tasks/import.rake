@@ -9,12 +9,12 @@ namespace :import do
 
     sets_to_download.each do |set_name|
       # Delete existing files before we start
-      if File.exists? "public/importer/#{set_name}.json"
-        File.delete "public/importer/#{set_name}.json"
+      Dir.glob('public/importer/*.json').each do |fname|
+        File.delete fname
       end
 
-      if File.exists? "public/importer/#{set_name}.zip"
-        File.delete "public/importer/#{set_name}.zip"
+      Dir.glob('public/importer/*.zip').each do |fname|
+        File.delete fname
       end
 
       # Fetch ZIP for the current SET to be downloaded
