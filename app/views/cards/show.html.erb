@@ -41,16 +41,18 @@
 	    		<td>Artist</td>
 	    		<td><%= @card.artist %></td>
 	    	</tr>
+	    	<% if @also_seen_in.any? %>
 	    	<tr>
 	    		<td>Also seen in:</td>
 	    		<td>
-	    			<% MagicCard.where(name: @card.name).where.not(id: @card.id).each do |magic_card| %>
+	    			<% @also_seen_in.each do |magic_card| %>
 	    				<%= link_to card_path(magic_card) do %>
 	    					<i class="ss ss-<%= magic_card.magic_set.code.downcase %> ss-2x ss-common"></i>
 	    				<% end %>
 	    			<% end %>
 	    		</td>
 	    	</tr>
+	    	<% end %>
 		  </tbody>
 		</table>
   </div>
