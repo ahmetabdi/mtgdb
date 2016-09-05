@@ -13,7 +13,6 @@
 //= require jquery
 //= require jquery_ujs
 //= require foundation
-//= require turbolinks
 //= require_tree .
 
 $(document).on('ready page:load', function(event) {
@@ -32,7 +31,7 @@ $(document).on('ready page:load', function(event) {
 		var all_characters = str.match(/[a-zA-Z]+/g)
 
 		$(all_characters).each(function(index, value) {
-		  var regex = new RegExp("\\{"+value+"\\}", "g"); 
+		  var regex = new RegExp("\\{"+value+"\\}", "g");
 		  str = str.replace(regex, '<i class="mi mi-'+value.toLowerCase()+' mi-mana mi-shadow"></i>\n');
 		});
 
@@ -76,7 +75,7 @@ $(document).on('ready page:load', function(event) {
         return options.inverse(this);
     }
 	});
-	
+
 	if ($('#demo-input').length) {
 		var bloodQuery = new Bloodhound({
 		  datumTokenizer: Bloodhound.tokenizers.obj.whitespace('name'),

@@ -2,7 +2,7 @@ class SearchController < ApplicationController
 	def autocomplete
     render json: Searchkick.search(params[:query],
     	index_name: [MagicCard, MagicSet],
-    	fields: [:name], 
+    	fields: [:name],
     	match: :word_start,
       limit: 10,
       load: false,
