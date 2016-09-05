@@ -21,19 +21,21 @@ $(document).on('ready page:load', function(event) {
 	});
 
 	Handlebars.registerHelper('toSymbols', function(str) {
-		var all_numbers = str.match(/\d+/g)
+    if (str) {
+      var all_numbers = str.match(/\d+/g)
 
-		$(all_numbers).each(function(index, value) {
-		  var regex = new RegExp("\\{"+value+"\\}", "g");
-		  str = str.replace(regex, '<i class="mi mi-mana mi-shadow mi-'+value+'"></i>\n');
-		});
+      $(all_numbers).each(function(index, value) {
+        var regex = new RegExp("\\{"+value+"\\}", "g");
+        str = str.replace(regex, '<i class="mi mi-mana mi-shadow mi-'+value+'"></i>\n');
+      });
 
-		var all_characters = str.match(/[a-zA-Z]+/g)
+      var all_characters = str.match(/[a-zA-Z]+/g)
 
-		$(all_characters).each(function(index, value) {
-		  var regex = new RegExp("\\{"+value+"\\}", "g");
-		  str = str.replace(regex, '<i class="mi mi-'+value.toLowerCase()+' mi-mana mi-shadow"></i>\n');
-		});
+      $(all_characters).each(function(index, value) {
+        var regex = new RegExp("\\{"+value+"\\}", "g");
+        str = str.replace(regex, '<i class="mi mi-'+value.toLowerCase()+' mi-mana mi-shadow"></i>\n');
+      });
+    }
 
 		return str;
 	});
