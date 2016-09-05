@@ -332,13 +332,12 @@ input[type=text]::-ms-clear {
 }
 
 .Typeahead-menu {
-  position: absolute;
-  top: 95%;
-  left: 2.5%;
-  z-index: 100;
+  /*top: 2.5%;*/
+  /*left: 2.5%;*/
+  /*z-index: 100;*/
   display: none;
-  width: 95%;
-  margin-bottom: 20px;
+  /*width: 95%;*/
+  margin: 20px;
   overflow: hidden;
   background-color: #fff;
   -webkit-border-radius: 8px;
