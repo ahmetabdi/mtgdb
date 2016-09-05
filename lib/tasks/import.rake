@@ -13,7 +13,7 @@ namespace :import do
         File.delete fname
       end
 
-      Dir.glob('public/importer/*.zip').each do |fname|
+      Dir.glob('public/importer/*.zip').each do |fanme|
         File.delete fname
       end
 

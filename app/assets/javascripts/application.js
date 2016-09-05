@@ -123,20 +123,10 @@ $(document).on('ready page:load', function(event) {
 		  $('.Typeahead-spinner').hide();
 		})
 		.on('typeahead:select', function(object, suggestion) {
-			if (suggestion._type == 'magic_card') {
-				window.location.href = "/cards/" + suggestion.slug;
-			}
-			else if (suggestion._type == 'magic_set') {
-				window.location.href = "/sets/" + suggestion.slug;
-			}
+			window.location.href = "/cards/" + suggestion.slug;
 		})
 		.on('typeahead:autocomplete', function(object, suggestion) {
-		  if (suggestion._type == 'magic_card') {
-				window.location.href = "/cards/" + suggestion.slug;
-			}
-			else if (suggestion._type == 'magic_set') {
-				window.location.href = "/sets/" + suggestion.slug;
-			}
+			window.location.href = "/cards/" + suggestion.slug;
 		});
 	}
 });
