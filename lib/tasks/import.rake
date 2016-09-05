@@ -1,7 +1,7 @@
 namespace :import do
   desc "TODO"
   task run: :environment do
-    file = File.read(Rails.root.join('lib', 'AllSets.json'))
+    file = File.read(Rails.root.join('lib', 'AllSetsExtras.json'))
     data = JSON.parse(file)
 
     data.each do |key, value|
@@ -58,6 +58,14 @@ namespace :import do
           card.release_date = value['releaseDate']
           card.starter = value['starter']
           card.mci_number = value['mciNumber']
+          card.rulings = value['rulings']
+          card.foreign_names = value['foreignNames']
+          card.printings = value['printings']
+          card.original_text = value['originalText']
+          card.original_type = value['originalType']
+          card.legalities = value['legalities']
+          card.promo_source = value['source']
+
           card.magic_set_id = magic_set.id
           card.save
         end

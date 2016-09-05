@@ -14,10 +14,6 @@ class MagicSet < ApplicationRecord
     ]
   end
 
-  def serialized_booster
-    JSON.parse(booster)
-  end
-
   private
 
   def should_generate_new_friendly_id?

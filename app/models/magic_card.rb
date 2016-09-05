@@ -10,6 +10,7 @@ class MagicCard < ApplicationRecord
   def slug_candidates
     [
       :name,
+      [:name, magic_set.name],
       [:name, :id]
     ]
   end

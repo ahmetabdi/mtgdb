@@ -4,15 +4,15 @@ class CreateMagicCards < ActiveRecord::Migration[5.0]
       t.string :unique_id
       t.string :layout
       t.string :name
-      t.string :names
+      t.json :names
       t.string :mana_cost
       t.string :cmc
-      t.string :colors
-      t.string :color_identity
+      t.json :colors
+      t.json :color_identity
       t.string :type_of_card
-      t.string :supertypes
-      t.string :types
-      t.string :subtypes
+      t.json :supertypes
+      t.json :types
+      t.json :subtypes
       t.string :rarity
       t.string :text
       t.string :flavor
@@ -22,7 +22,7 @@ class CreateMagicCards < ActiveRecord::Migration[5.0]
       t.string :toughness
       t.string :loyalty
       t.string :multiverse_id
-      t.string :variations
+      t.json :variations
       t.string :image_name
       t.string :watermark
       t.string :border
@@ -33,6 +33,13 @@ class CreateMagicCards < ActiveRecord::Migration[5.0]
       t.string :release_date
       t.boolean :starter
       t.string :mci_number
+      t.json :rulings
+      t.json :foreign_names
+      t.json :printings
+      t.string :original_text
+      t.string :original_type
+      t.json :legalities
+      t.string :promo_source
 
       t.references :magic_set, foreign_key: true
     end

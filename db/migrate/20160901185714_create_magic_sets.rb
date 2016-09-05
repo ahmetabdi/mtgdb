@@ -11,7 +11,7 @@ class CreateMagicSets < ActiveRecord::Migration[5.0]
       t.string :type_of_set
       t.string :block
       t.boolean :online_only
-      t.string :booster
+      t.json :booster
       t.string :mkm_name
       t.string :mkm_id
       t.string :magic_rarities_codes
