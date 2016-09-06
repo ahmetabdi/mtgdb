@@ -1,6 +1,6 @@
 class SearchController < ApplicationController
   def autocomplete
-    render json: MagicCard.search(params[:query], fields: ["name", "text"], load: false).as_json
+    render json: MagicCard.search(params[:query], fields: ["name", "text"], match: :word_start, load: false).as_json
   end
 
   def normal

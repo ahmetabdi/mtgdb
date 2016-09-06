@@ -1,5 +1,5 @@
 class MagicCard < ApplicationRecord
-	searchkick
+	searchkick word_start: [:name]
   extend FriendlyId
   friendly_id :slug_candidates, use: :slugged
 
