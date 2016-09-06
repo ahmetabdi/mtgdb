@@ -17,24 +17,38 @@
 
 $(document).on('ready page:load', function(event) {
 
-  $('.img-preview img').imgPreview({
-    preloadImages: false,
-    srcAttr: 'rel',
-    imgCSS: {
-        height: 500
-    },
-    onShow: function(link){
-        $(link).stop().animate({opacity:0.4});
-        $('img', this).stop().css({opacity:0});
-    },
-    onLoad: function(){
-        $(this).animate({opacity:1}, 300);
-    },
-    onHide: function(link){
-        $(link).stop().animate({opacity:1});
-    }
-  });
+  $('.autocard').each(function() {
+    var url = $(this).attr("data-image-url");
+    var autocard = $(this);
 
+    $(this).qtip({
+      content: '<img src="' + url + '" />',
+      position: {
+        viewport: $(window),
+        target: "mouse",
+        adjust: {
+          x: 5,
+          y: 5,
+          screen: !0
+        }
+      },
+      show: {
+        effect: function(offset) {
+          $(this).show(); // "this" refers to the tooltip
+          $(autocard).stop().animate({opacity:0.4});
+          $('img', autocard).stop().css({opacity:0});
+        }
+      },
+      hide: {
+        delay: 0,
+        fixed: !1,
+        effect: function(offset) {
+          $(this).hide();
+          $(autocard).stop().animate({opacity:1});
+        }
+      }
+    })
+  });
 
 	Handlebars.registerHelper('toLowerCase', function(str) {
 	  return str.toLowerCase();
