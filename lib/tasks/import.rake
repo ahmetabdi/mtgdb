@@ -1,9 +1,53 @@
 require 'net/http'
 require 'zip'
+require 'data_importer'
 
 namespace :import do
   desc "Downloads and imports all sets and cards from mtgjson.com"
-  task run: :environment do
+  task run: :environment do 
+    # Delete existing files before we start
+    Dir.glob('public/importer/*.json').each do |fname|
+      File.delete fname
+    end
+
+    Dir.glob('public/importer/*.zip').each do |fname|
+      File.delete fname
+    end
+
+    # Fetch ZIP
+    uri = URI("https://mtgjson.com/json/AllSets-x.json.zip")
+    zipped_folder = Net::HTTP.get(uri)
+
+    File.open("public/importer/AllSets-x.json.zip", 'wb') do |file|
+      file.write(zipped_folder)
+    end
+
+    # Extra fetched ZIP to a JSON file
+    zip_file = Zip::File.open("public/importer/AllSets-x.json.zip")
+    zip_file.each do |file|
+      file.extract("public/importer/AllSets-x.json")
+    end
+
+    # Remove UNZIPPED ZIP as it's no longer needed
+    if File.exists? "public/importer/AllSets-x.json.zip"
+      File.delete "public/importer/AllSets-x.json.zip"
+    end
+
+    # Parse the JSON file and start importing the data
+    file = File.read("public/importer/AllSets-x.json")
+    data = JSON.parse(file)
+
+    data.each do |set_name, values|
+      DataImporter.run(values)
+    end
+    
+    if File.exists? "public/importer/AllSets-x.json"
+      File.delete "public/importer/AllSets-x.json"
+    end
+  end
+
+  desc "Downloads and imports all sets and cards from mtgjson.com for standard"
+  task standard: :environment do
     # Sets to download - Currently everything in standard
     sets_to_download = ['DTK', 'ORI', 'BFZ', 'OGW', 'W16', 'SOI', 'EMN']
 
@@ -13,7 +57,7 @@ namespace :import do
         File.delete fname
       end
 
-      Dir.glob('public/importer/*.zip').each do |fanme|
+      Dir.glob('public/importer/*.zip').each do |fname|
         File.delete fname
       end
 
@@ -40,70 +84,7 @@ namespace :import do
       file = File.read("public/importer/#{set_name}.json")
       data = JSON.parse(file)
 
-      magic_set = MagicSet.where(code: data['code']).first_or_initialize.tap do |set|
-        set.name = data['name']
-        set.code = data['code']
-        set.gatherer_code = data['gathererCode']
-        set.old_code = data['oldCode']
-        set.magic_cards_info_code = data['magicCardsInfoCode']
-        set.release_date = data['releaseDate']
-        set.border = data['border']
-        set.type_of_set = data['type']
-        set.block = data['block']
-        set.online_only = data['onlineOnly']
-        set.booster = data['booster']
-        set.mkm_name = data['mkm_name']
-        set.mkm_id = data['mkm_id']
-        set.magic_rarities_codes = data['magicRaritiesCodes']
-        set.save
-      end
-
-      data['cards'].each do |value|
-        puts "#{data['name']} - #{value['name']}"
-        MagicCard.where(unique_id: value['id']).first_or_initialize.tap do |card|
-          card.unique_id = value['id']
-          card.layout = value['layout']
-          card.name = value['name']
-          card.names = value['names']
-          card.mana_cost = value['manaCost']
-          card.cmc = value['cmc']
-          card.colors = value['colors']
-          card.color_identity = value['colorIdentity']
-          card.type_of_card = value['type']
-          card.supertypes = value['supertypes']
-          card.types = value['types']
-          card.subtypes = value['subtypes']
-          card.rarity = value['rarity']
-          card.text = value['text']
-          card.flavor = value['flavor']
-          card.artist = value['artist']
-          card.number = value['number']
-          card.power = value['power']
-          card.toughness = value['toughness']
-          card.loyalty = value['loyalty']
-          card.multiverse_id = value['multiverseid']
-          card.variations = value['variations']
-          card.image_name = value['imageName']
-          card.watermark = value['watermark']
-          card.border = value['border']
-          card.timeshifted = value['timeshifted']
-          card.hand = value['hand']
-          card.life = value['life']
-          card.reserved = value['reserved']
-          card.release_date = value['releaseDate']
-          card.starter = value['starter']
-          card.mci_number = value['mciNumber']
-          card.rulings = value['rulings']
-          card.foreign_names = value['foreignNames']
-          card.printings = value['printings']
-          card.original_text = value['originalText']
-          card.original_type = value['originalType']
-          card.legalities = value['legalities']
-          card.promo_source = value['source']
-          card.magic_set_id = magic_set.id
-          card.save
-        end
-      end
+      DataImporter.run(data)
 
       if File.exists? "public/importer/#{set_name}.json"
         File.delete "public/importer/#{set_name}.json"

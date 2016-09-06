@@ -1,5 +1,5 @@
 class MagicCard < ApplicationRecord
-	searchkick word_start: [:name]
+  searchkick match: :word_start, searchable: [:name, :text]
   extend FriendlyId
   friendly_id :slug_candidates, use: :slugged
 
@@ -11,6 +11,19 @@ class MagicCard < ApplicationRecord
       [:name, magic_set.name],
       [:name, :id]
     ]
+  end
+
+  def search_data
+    {
+      name: name,
+      mana_cost: mana_cost,
+      type_of_card: type_of_card,
+      text: text,
+      set_code: magic_set.code.downcase,
+      rarity: rarity.downcase,
+      multiverse_id: multiverse_id,
+      slug: slug
+    }
   end
 
   private

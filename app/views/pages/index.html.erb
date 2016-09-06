@@ -18,41 +18,17 @@
 </div>
 
 <script id="result-template" type="text/x-handlebars-template">
-
-	{{#compare _type "magic_set"}}
-	  <div class="ProfileCard u-cf">
-	    <img class="ProfileCard-avatar" src="{{profile_image_url_https}}">
-
-	    <div class="ProfileCard-details">
-	      <div class="ProfileCard-realName">{{name}}</div>
-	      <div class="ProfileCard-screenName">({{code}})</div>
-	      <div class="ProfileCard-description"><i class="ss ss-{{toLowerCase code}} ss-3x ss-common"></i></div>
-
-	    </div>
-
-	    <div class="ProfileCard-stats">
-	      <div class="ProfileCard-stat"><span class="ProfileCard-stat-label">Border:</span> {{border}}</div>
-	      <div class="ProfileCard-stat"><span class="ProfileCard-stat-label">Type:</span> {{type_of_set}}</div>
-	      <div class="ProfileCard-stat"><span class="ProfileCard-stat-label">Release date:</span> {{release_date}}</div>
-	    </div>
-	  </div>
-	{{/compare}}
-
 	{{#compare _type "magic_card"}}
 	  <div class="ProfileCard u-cf">
-	    <img class="ProfileCard-avatar" src="http://gatherer.wizards.com/Handlers/Image.ashx?multiverseid={{multiverse_id}}&type=card">
+	    <img class="ProfileCard-avatar" src="https://image.deckbrew.com/mtg/multiverseid/{{multiverse_id}}.jpg">
 
 	    <div class="ProfileCard-details">
-	      <div class="ProfileCard-realName">{{name}}</div>
+	      <div class="ProfileCard-realName">{{name}} {{{toSymbols mana_cost}}}</div>
 	      <div class="ProfileCard-screenName">({{type_of_card}})</div>
-	      <div class="ProfileCard-description">{{{toSymbols mana_cost}}}</div>
+	      <div class="ProfileCard-description">{{{toSymbols text}}}</div>
 	    </div>
 
-	    <div class="ProfileCard-stats">
-	      <div class="ProfileCard-stat"><span class="ProfileCard-stat-label">Rarity:</span> {{rarity}}</div>
-	      <div class="ProfileCard-stat"><span class="ProfileCard-stat-label">Power / Toughness:</span> {{power}} {{toughness}}</div>
-	      <div class="ProfileCard-stat"><span class="ProfileCard-stat-label">No:</span> {{number}}</div>
-	    </div>
+      <i class="ProfileCard-set ss ss-{{set_code}} ss-2x ss-{{rarity}} %>"></i>
 	  </div>
 	{{/compare}}
 </script>
