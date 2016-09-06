@@ -78,7 +78,7 @@
         <% @cards.each do |card| %>
         <tr>
           <td class="img-preview">
-            <img rel="https://s3-eu-west-1.amazonaws.com/mtgdb-production/<%= card.magic_set.code.downcase %>/<%= CGI.escape(card.name) %>.full.jpg" src="http://gatherer.wizards.com/Handlers/Image.ashx?multiverseid=<%= card.multiverse_id %>&type=card" width="100px;">
+            <img rel="https://s3-eu-west-1.amazonaws.com/mtgdb-production/<%= card.magic_set.code.downcase %>/<%= CGI.escape(card.name) %>.full.jpg" src="https://image.deckbrew.com/mtg/multiverseid/<%= card.multiverse_id %>.jpg" width="100px;">
           </td>
           <td><%= link_to card.name, card_path(card) %></td>
           <td><%= mana_cost_to_icons(card.mana_cost) %></td>
