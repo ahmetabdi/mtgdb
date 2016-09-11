@@ -10,12 +10,16 @@
 // Read Sprockets README (https://github.com/rails/sprockets#sprockets-directives) for details
 // about supported directives.
 //
-//= require jquery
-//= require jquery_ujs
-//= require foundation
+//= require react_ujs
+//= require_self
 //= require_tree .
+window.$ = window.jQuery = global.$ = require('jquery');
+var React = window.React = global.React = require('react');
+var ReactDOM = window.ReactDOM = global.ReactDOM = require('react-dom');
 
-$(document).on('ready page:load', function(event) {
+require('./components');
+
+$(function() {
 
   $('.autocard').each(function() {
     var url = $(this).attr("data-image-url");
@@ -164,5 +168,3 @@ $(document).on('ready page:load', function(event) {
 		});
 	}
 });
-
-$(function(){ $(document).foundation(); });

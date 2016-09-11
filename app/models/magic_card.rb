@@ -21,9 +21,9 @@ class MagicCard < ApplicationRecord
       text: text,
       set_code: magic_set.code.downcase,
       rarity: rarity.downcase,
-      cmc: cmc,
+      cmc: cmc.to_i,
       types: types,
-      colors: colors,
+      colors: colors ? colors : ["Other"],
       multiverse_id: multiverse_id,
       slug: slug
     }

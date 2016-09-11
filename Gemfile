@@ -6,13 +6,15 @@ gem 'puma', '~> 3.0'
 gem 'sass-rails', '~> 5.0'
 gem 'uglifier', '>= 1.3.0'
 gem 'coffee-rails', '~> 4.2'
-gem 'jquery-rails'
+# gem 'jquery-rails'
 gem 'jbuilder', '~> 2.5'
 gem 'searchkick'
 gem 'friendly_id', '~> 5.1.0'
 gem 'foundation-rails'
 gem 'rubyzip'
 gem 'kaminari'
+gem "browserify-rails"
+gem 'react-rails'
 
 group :development, :test do
   gem 'byebug', platform: :mri

@@ -50,3 +50,11 @@
 //
 // @include motion-ui-transitions;
 // @include motion-ui-animations;
+
+
+input:disabled, input[readonly],
+textarea:disabled,
+textarea[readonly] {
+  background-color: #e6e6e6;
+  cursor: auto;
+}
