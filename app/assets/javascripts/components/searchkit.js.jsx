@@ -5,7 +5,7 @@ import {
   SearchBox, RefinementListFilter, MenuFilter,
   Hits, HitsStats, NoHits, Pagination, SortingSelector,
   SelectedFilters, ResetFilters, ItemHistogramList,
-  Layout, LayoutBody, LayoutResults, TopBar,
+  Layout, LayoutBody, LayoutResults, TopBar, 
   SideBar, ActionBar, ActionBarRow, ViewSwitcherHits, ViewSwitcherToggle, InitialLoader
 } from "searchkit";
 
@@ -13,15 +13,13 @@ const MovieHitsGridItem = (props)=> {
   const {bemBlocks, result} = props
   let object = result._source
 
-  console.log(object)
-
   let poster = "https://image.deckbrew.com/mtg/multiverseid/" + object.multiverse_id + ".jpg"
   let url = "/cards/" + object.slug
   const source:any = _.extend({}, result._source, result.highlight)
   return (
     <div className={bemBlocks.item().mix(bemBlocks.container("item"))} data-qa="hit">
       <a href={url}>
-        <img data-qa="poster" className={bemBlocks.item("poster")} src={poster} width="170" height="240"/>
+        <img data-qa="poster" className={bemBlocks.item("poster")} src={poster} />
         <div data-qa="title" className={bemBlocks.item("name")} dangerouslySetInnerHTML={{__html:source.name}}>
         </div>
       </a>
@@ -33,9 +31,9 @@ const MovieHitsListItem = (props)=> {
   const {bemBlocks, result} = props
   let object = result._source
 
-  //let poster = "https://image.deckbrew.com/mtg/multiverseid/" + object.multiverse_id + ".jpg"
+  let poster = "https://image.deckbrew.com/mtg/multiverseid/" + object.multiverse_id + ".jpg"
   let url = "/cards/" + object.slug
-  let poster = "https://s3-eu-west-1.amazonaws.com/mtgdb-production/"+object.set_code+"/"+object.name+".full.jpg"
+  //let poster = "https://s3-eu-west-1.amazonaws.com/mtgdb-production/"+object.set_code+"/"+object.name+".full.jpg"
 
   var toSymbols = function(str) {
     if (str) {
@@ -63,21 +61,27 @@ const MovieHitsListItem = (props)=> {
         <img data-qa="poster" src={poster}/>
       </div>
       <div className={bemBlocks.item("details")}>
-        <a href={url} target="_blank">
-          <h2 className={bemBlocks.item("name")}>{object.name}</h2> 
+        <a href={url}>
+          <h3 className={bemBlocks.item("name")}>{object.name}</h3> 
         </a> <div dangerouslySetInnerHTML={{__html:toSymbols(object.mana_cost)}}></div>
 
-        <p className={bemBlocks.item("type_of_card")}>{object.type_of_card}</p> <i className={"ss ss-"+object.set_code+" ss-2x ss-"+object.rarity+""}></i>
+        <div>
+          <i className={"top-right ss ss-"+object.set_code+" ss-2x ss-"+object.rarity+""}></i> ({object.type_of_card})
+        </div>
+        <br />
         <div className={bemBlocks.item("text")} dangerouslySetInnerHTML={{__html:toSymbols(object.text)}}></div>
       </div>
     </div>
   )
 }
 
-const host = "http://localhost:9200"
-const searchkit = new SearchkitManager(host, {searchOnLoad: true})
+const host = "https://olive-9884404.eu-west-1.bonsai.io"
+const searchkit = new SearchkitManager(host, {basicAuth:"u3t4b5cc:8gunopy6frphao2s"})
 
-var FileUploadArea = React.createClass({
+var SearchKit = React.createClass({
+  reloadSearch: function() {
+    searchkit.reloadSearch()
+  },
   render: function() {
     return (
       <SearchkitProvider searchkit={searchkit}>
@@ -122,11 +126,6 @@ var FileUploadArea = React.createClass({
                 <ActionBarRow>
                   <HitsStats/>
                   <ViewSwitcherToggle/>
-                  <SortingSelector options={[
-                    {label:"Relevance", field:"_score", order:"desc", defaultOption:true},
-                    {label:"Latest Releases", field:"released", order:"desc"},
-                    {label:"Earliest Releases", field:"released", order:"asc"}
-                  ]}/>
                 </ActionBarRow>
                 <ActionBarRow>
                   <SelectedFilters/>
@@ -153,4 +152,4 @@ var FileUploadArea = React.createClass({
   }
 });
 
-export default FileUploadArea
+export default SearchKit

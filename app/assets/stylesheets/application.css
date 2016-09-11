@@ -26,6 +26,12 @@ html {
   *overflow-x: hidden;
 }
 
+.top-right {
+  position: absolute;
+  top: 0px;
+  right: 0px;
+}
+
 #header a {
   color: #888;
 }

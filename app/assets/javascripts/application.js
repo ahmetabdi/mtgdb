@@ -21,6 +21,8 @@ require('./components');
 
 $(function() {
 
+  window.SearchKit.prototype.reloadSearch();
+
   $('.autocard').each(function() {
     var url = $(this).attr("data-image-url");
     var autocard = $(this);
