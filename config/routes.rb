@@ -6,7 +6,5 @@ Rails.application.routes.draw do
   get '/sets', to: 'sets#index'
   get '/sets/:id', to: 'sets#show', as: 'set'
 
-  get '/test', to: 'pages#test'
-  
-  root to: 'pages#index'
+  root to: 'pages#test'
 end
