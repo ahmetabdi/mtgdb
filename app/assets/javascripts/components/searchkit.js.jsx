@@ -5,7 +5,7 @@ import {
   SearchBox, RefinementListFilter, MenuFilter,
   Hits, HitsStats, NoHits, Pagination, SortingSelector,
   SelectedFilters, ResetFilters, ItemHistogramList,
-  Layout, LayoutBody, LayoutResults, TopBar, 
+  Layout, LayoutBody, LayoutResults, TopBar,
   SideBar, ActionBar, ActionBarRow, ViewSwitcherHits, ViewSwitcherToggle, InitialLoader
 } from "searchkit";
 
@@ -33,7 +33,6 @@ const MovieHitsListItem = (props)=> {
 
   let poster = "https://image.deckbrew.com/mtg/multiverseid/" + object.multiverse_id + ".jpg"
   let url = "/cards/" + object.slug
-  //let poster = "https://s3-eu-west-1.amazonaws.com/mtgdb-production/"+object.set_code+"/"+object.name+".full.jpg"
 
   var toSymbols = function(str) {
     if (str) {
@@ -62,7 +61,7 @@ const MovieHitsListItem = (props)=> {
       </div>
       <div className={bemBlocks.item("details")}>
         <a href={url}>
-          <h3 className={bemBlocks.item("name")}>{object.name}</h3> 
+          <h3 className={bemBlocks.item("name")}>{object.name}</h3>
         </a> <div dangerouslySetInnerHTML={{__html:toSymbols(object.mana_cost)}}></div>
 
         <div>
@@ -117,6 +116,12 @@ var SearchKit = React.createClass({
                 id="converted_mana_cost"
                 title="CMC"
                 field="cmc"
+                operator="OR"
+                size={5}/>
+              <RefinementListFilter
+                id="set"
+                title="Set"
+                field="set_name"
                 operator="OR"
                 size={5}/>
             </SideBar>

@@ -19,6 +19,7 @@ class MagicCard < ApplicationRecord
       mana_cost: mana_cost,
       type_of_card: type_of_card,
       text: text,
+      set_name: magic_set.name,
       set_code: magic_set.code.downcase,
       rarity: rarity.downcase,
       cmc: cmc.to_i,
