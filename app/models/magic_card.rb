@@ -1,5 +1,5 @@
 class MagicCard < ApplicationRecord
-  searchkick match: :word_start, searchable: [:name, :text]
+  searchkick match: :word_start, searchable: [:name, :text, :type_of_card, :subtypes]
   extend FriendlyId
   friendly_id :slug_candidates, use: :slugged
 
@@ -26,6 +26,7 @@ class MagicCard < ApplicationRecord
       types: types,
       colors: colors ? colors : ["Other"],
       multiverse_id: multiverse_id,
+      subtypes: subtypes,
       slug: slug
     }
   end
