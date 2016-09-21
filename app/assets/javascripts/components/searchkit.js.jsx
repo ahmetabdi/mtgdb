@@ -74,8 +74,8 @@ const MovieHitsListItem = (props)=> {
   )
 }
 
-const host = "https://olive-9884404.eu-west-1.bonsai.io"
-const searchkit = new SearchkitManager(host, {basicAuth:"u3t4b5cc:8gunopy6frphao2s"})
+const host = "https://maple-135353.eu-west-1.bonsai.io"
+const searchkit = new SearchkitManager(host, {basicAuth:"2onmqi0a:i5uxpa87wa2inms8"})
 
 var SearchKit = React.createClass({
   reloadSearch: function() {
