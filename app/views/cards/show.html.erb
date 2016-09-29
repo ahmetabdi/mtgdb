@@ -71,7 +71,7 @@
 		    </tr>
 		  </thead>
 		  <tbody>
-		  	<% if @card.legalities.any? %>
+		  	<% unless @card.legalities.nil? %>
 			  	<% @card.legalities.each do |legality| %>
 			    <tr>
 			      <td><%= legality['format'] %></td>
