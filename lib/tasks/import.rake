@@ -4,7 +4,7 @@ require 'data_importer'
 
 namespace :import do
   desc "Downloads and imports all sets and cards from mtgjson.com"
-  task run: :environment do 
+  task run: :environment do
     # Delete existing files before we start
     Dir.glob('public/importer/*.json').each do |fname|
       File.delete fname
@@ -40,7 +40,7 @@ namespace :import do
     data.each do |set_name, values|
       DataImporter.run(values)
     end
-    
+
     if File.exists? "public/importer/AllSets-x.json"
       File.delete "public/importer/AllSets-x.json"
     end
@@ -49,7 +49,7 @@ namespace :import do
   desc "Downloads and imports all sets and cards from mtgjson.com for standard"
   task standard: :environment do
     # Sets to download - Currently everything in standard
-    sets_to_download = ['DTK', 'ORI', 'BFZ', 'OGW', 'W16', 'SOI', 'EMN']
+    sets_to_download = ['BFZ', 'OGW', 'W16', 'SOI', 'EMN', 'KLD']
 
     sets_to_download.each do |set_name|
       # Delete existing files before we start
