@@ -49,7 +49,7 @@ namespace :import do
   desc "Downloads and imports all sets and cards from mtgjson.com for standard"
   task standard: :environment do
     # Sets to download - Currently everything in standard
-    sets_to_download = ['BFZ', 'OGW', 'W16', 'SOI', 'EMN', 'KLD', 'AER']
+    sets_to_download = ['BFZ', 'OGW', 'W16', 'SOI', 'EMN', 'KLD', 'AER', 'AKH']
 
     sets_to_download.each do |set_name|
       # Delete existing files before we start
